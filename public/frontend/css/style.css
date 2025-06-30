@@ -1,0 +1,89 @@
+/* Main Styles */
+.attendance-landing {
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+    padding-top: 80px;
+}
+
+/* Icon Boxes */
+.icon-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Step Cards */
+.step-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: #3a7bd5;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+/* Background Utilities */
+.bg-light-primary {
+    background-color: rgba(58, 123, 213, 0.1);
+}
+
+.bg-light-success {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.bg-light-info {
+    background-color: rgba(13, 202, 240, 0.1);
+}
+
+/* Text Colors */
+.text-primary {
+    color: #3a7bd5 !important;
+}
+
+.text-success {
+    color: #198754 !important;
+}
+
+.text-info {
+    color: #0dcaf0 !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        text-align: center;
+        padding-top: 60px;
+    }
+    
+    .hero-section .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .navbar-brand svg {
+        width: 120px;
+    }
+}
