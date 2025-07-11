@@ -3,7 +3,7 @@
 
 namespace App\Services;
 
-use Rats\Zkteco\Lib\ZKTeco;
+use Jmrashed\Zkteco\Lib\ZKTeco;
 
 class ZKTecoService
 {
@@ -34,7 +34,7 @@ class ZKTecoService
             return ['status' => false, 'message' => 'Connection failed'];
         }
 
-        $attendance = $this->zk->getAttendance(); 
+        $attendance = $this->zk->getAttendance();
         $this->disconnect();
 
         return ['status' => true, 'data' => $attendance];
@@ -83,7 +83,7 @@ class ZKTecoService
             return ['status' => false, 'message' => 'Connection failed'];
         }
 
-        $userList = $this->zk->getUser(); 
+        $userList = $this->zk->getUser();
         $this->disconnect();
 
         return ['status' => true, 'data' => $userList];

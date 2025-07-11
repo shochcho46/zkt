@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>AdminLTE 4 | Login Page v2</title><!--begin::Primary Meta Tags-->
+    <title>{{ config('app.name', 'Laravel') }}</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Login Page v2">
     <meta name="author" content="ColorlibHQ">
@@ -23,6 +23,7 @@
     <!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}"><!--end::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('css/otp.css') }}">
+    <link rel="icon" href="{{asset('frontend/assets/images/favicon.png')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 </head> <!--end::Head--> <!--begin::Body-->
 

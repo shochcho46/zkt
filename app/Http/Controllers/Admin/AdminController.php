@@ -7,6 +7,7 @@ use App\Mail\ForgetPassMail;
 use App\Models\Admin;
 use App\Models\Country;
 use App\Models\Gender;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator ;
+use Modules\Admin\Models\Attendence;
+use Modules\Admin\Models\Employee;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use Propaganistas\LaravelPhone\Rules\Phone;
 
@@ -142,7 +145,11 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $user = Auth::guard('admin')->user();
+        $totalEmployees = Employee::count();
+        $totalRecords = Attendence::count();
+        $totalMatchines = Setting::where('admin_id', $user->id)->count() ?? 0 ;
+        return view('admin.dashboard', compact('totalEmployees', 'totalRecords', 'totalMatchines'));
     }
 
 

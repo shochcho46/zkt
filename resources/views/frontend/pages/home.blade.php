@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-      
+
 <!-- Hero Section -->
 <section class="hero-section py-5 bg-primary text-white">
     <div class="container">
@@ -19,7 +19,7 @@
                 <p class="lead mb-4">Seamlessly connect your ZKT biometric devices, monitor real-time attendance, and generate comprehensive reports with our powerful solution.</p>
                 <div class="d-flex gap-3">
                     <a href="#features" class="btn btn-light btn-lg px-4">Explore Features</a>
-                    <a href="/login" class="btn btn-outline-light btn-lg px-4">Login</a>
+                    <a href="{{ route('adminLogin') }}" class="btn btn-outline-light btn-lg px-4">Login</a>
                 </div>
             </div>
             <div class="col-lg-6 text-end">
@@ -74,9 +74,9 @@
                     <circle class="dot dot3" cx="190" cy="100" />
                     <circle class="dot dot4" cx="260" cy="150" />
 
-                    
+
                     </svg>
-               
+
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
             <h2 class="fw-bold">Powerful Features</h2>
             <p class="lead text-muted">Everything you need for efficient attendance management</p>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body text-center p-4">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body text-center p-4">
@@ -137,7 +137,7 @@
             <h2 class="fw-bold">How It Works</h2>
             <p class="lead text-muted">Simple steps to manage your attendance system</p>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="step-card">
@@ -170,7 +170,7 @@
         <h2 class="fw-bold mb-4">Ready to streamline your attendance management?</h2>
         <p class="lead mb-4">Join hundreds of companies using our ZKT attendance system</p>
         <div class="d-flex flex-column align-items-center gap-2">
-            
+
             <a href="tel:+1234567890" class="btn btn-outline-light btn-lg px-5">
                 <i class="bi bi-telephone-fill me-2"></i> +1 234 567 890
             </a>

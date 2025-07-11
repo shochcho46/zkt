@@ -37,7 +37,7 @@ class EmployeeController extends Controller
         $perPage = $request->input('limit', 500);
         $datas = Attendence::query();
         $datas = $datas->orderBy('id', 'desc')->with('employee')
-            
+
             ->when($request->filled('from_date') && $request->filled('to_date'), function ($query) use ($request) {
                 $startDate = Carbon::parse($request->input('from_date'))->startOfDay();
                 $endDate = Carbon::parse($request->input('to_date'))->endOfDay();
@@ -46,7 +46,7 @@ class EmployeeController extends Controller
             ->paginate($perPage);
         return view('admin::employee.attendenceIndex', compact('datas'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -64,8 +64,8 @@ class EmployeeController extends Controller
             # code...
             return Excel::download(new AttendanceExport($request),$filename);
     }
-    
-    
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -98,9 +98,9 @@ class EmployeeController extends Controller
                 $query->whereBetween('timestamp', [$startDate, $endDate]);
             })
             ->paginate($perPage);
-        return view('admin::employee.attendence', compact('datas','employee')); 
+        return view('admin::employee.attendence', compact('datas','employee'));
     }
-   
+
 
     /**
      * Show the form for editing the specified resource.
@@ -115,7 +115,33 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $attendenceData = $attendenceData[1] ?? [];
+
+        // Process attendance data in chunks of 500
+        foreach (array_chunk($attendenceData, 500) as $chunk) {
+            foreach ($chunk as $item) {
+                $insertData = [
+                    'uid'         => $item['uid'],
+                    'userid'      => $item['id'],
+                    'state'       => $item['state'],
+                    'timestamp'   => $item['timestamp'],
+                    'type'        => $item['type'],
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+
+                // Fetch employee (avoid doing this in loop if possible — see below)
+                $existingEmployee = Employee::where('userid', $item['id'])->first();
+                $insertData['employee_id'] = $existingEmployee->id ?? null;
+
+                // Avoid duplicate entries
+                $exists = Attendence::where('uid', $item['uid'])->exists();
+
+                if (!$exists) {
+                    Attendence::create($insertData);
+                }
+            }
+        }
     }
 
     /**
@@ -130,22 +156,25 @@ class EmployeeController extends Controller
             return view('admin::employee.sync', compact('data'));
         }
         $attendenceData = array_values($attendenceData);
+
         $attendenceData = array_values($attendenceData[1]);
+
         foreach ($attendenceData as $key => $item) {
+
             $insertData['uid'] = $item['uid'];
             $insertData['userid'] = $item['id'];
             $insertData['state'] = $item['state'];
             $insertData['timestamp'] = $item['timestamp'];
             $insertData['type'] = $item['type'];
-           
-  
+
+
               $existingData = Attendence::where('uid', $item['uid'])->first();
               $existingEmployee = Employee::where('userid', $item['id'])->first();
               $insertData['employee_id'] = $existingEmployee->id ?? null;
-  
+
               if ($existingData) {
                   // Update existing employee
-                  $existingData->update($insertData);
+                //   $existingData->update($insertData);
               } else {
                   // Insert new employee
                   Attendence::create($insertData);
@@ -161,23 +190,23 @@ class EmployeeController extends Controller
     {
         $zkService = $this->getZKServiceFromUser();
         $values = $zkService->syncUser();
+
         if ($values['status'] == false) {
             $data['status'] = false;
             return view('admin::employee.sync', compact('data'));
         }
         $userList = array_values($values);
         $userList = array_values($userList[1]);
-       
+
         foreach ($userList as $key => $item) {
           $insertData['uid'] = $item['uid'];
           $insertData['role'] = $item['role'];
           $insertData['name'] = $item['name'];
           $insertData['userid'] = $item['userid'];
           $insertData['cardno'] = $item['cardno'];
-         
+
 
             $existingEmployee = Employee::where('uid', $item['uid'])->first();
-
             if ($existingEmployee) {
                 // Update existing employee
                 $existingEmployee->update($insertData);
@@ -189,7 +218,7 @@ class EmployeeController extends Controller
 
         $data['status'] = true;
         return view('admin::employee.sync', compact('data'));
-        
-        
+
+
     }
 }

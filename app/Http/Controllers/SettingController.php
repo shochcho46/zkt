@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Services\ZKTecoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class SettingController extends Controller
 {
@@ -13,6 +14,7 @@ class SettingController extends Controller
     protected function getZKServiceFromUser()
     {
         $user = Auth::guard('admin')->user();
+
         $settingDetails = Setting::where('admin_id', $user->id)->first();
 
         // Example: assuming user has zkteco_ip and zkteco_port columns
@@ -26,7 +28,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -34,7 +36,8 @@ class SettingController extends Controller
      */
     public function create()
     {
-        $setting = Setting::first();
+        $user = Auth::guard('admin')->user();
+        $setting = Setting::where('admin_id', $user->id)->first();
         if ($setting) {
             return view('admin::setting.edit', compact('setting'));
         }
@@ -56,7 +59,7 @@ class SettingController extends Controller
         ]);
         // Convert delay_time from seconds to minutes before saving
         $validatedData['delay_time'] = $validatedData['delay_time'] ?? 0;
-    
+
 
         $validatedData['admin_id'] = Auth::guard('admin')->user()->id;
         Setting::create($validatedData);
@@ -75,16 +78,16 @@ class SettingController extends Controller
     public function connection(Setting $setting)
     {
         $zkService = $this->getZKServiceFromUser();
-        
+
         $connection['status'] = $zkService->connect();
-        
+
         if ($connection['status'] == true) {
             $deviceName = $zkService->deviceName();
             if ($deviceName['status'] == false) {
                 $connection['status'] = false;
                 return view('admin::setting.connection', compact('connection'));
             }
-           
+
             $raw = $deviceName['data'] ?? '';
             preg_match('/~DeviceName=([^\/]+)/', $raw, $matches);
             $deviceName = $matches[1] ?? 'Unknown';
@@ -93,15 +96,31 @@ class SettingController extends Controller
             $time = $zkService->getTime();
             if ($time['status'] == false) {
                 $connection['status'] = false;
-                return view('admin::setting.connection', compact('connection'));
+
+                $view = view('admin::setting.connection', ['connection' => $connection])->render();
+                // return view('admin::setting.connection', compact('connection'));
+
+                return response()->json([
+                            'view' => $view
+                        ]);
             }
-           
+
             $connection['time'] = $time['data'] ?? '';
-            
-            return view('admin::setting.connection', compact('connection'));
+
+
+            $view = view('admin::setting.connection', ['connection' => $connection])->render();
+            return response()->json([
+                'view' => $view
+            ]);
+            // return view('admin::setting.connection', compact('connection'));
         } else {
             $connection['status'] = false;
-            return view('admin::setting.connection', compact('connection'));
+
+            $view = view('admin::setting.connection', ['connection' => $connection])->render();
+            // return view('admin::setting.connection', compact('connection'));
+            return response()->json([
+                'view' => $view
+            ]);
         }
     }
 

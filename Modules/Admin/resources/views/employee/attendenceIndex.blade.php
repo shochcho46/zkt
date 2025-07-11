@@ -10,7 +10,7 @@
     <div class="container-fluid"> <!--begin::Row-->
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Role & Permision</h3>
+                <h3 class="mb-0">Attendence List</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">

@@ -1,8 +1,8 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
     <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="../index.html" class="brand-link">
-            <!--begin::Brand Image--> <img src="../../../dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span
-                class="brand-text fw-light">AdminLTE 4</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div>
+            <!--begin::Brand Image-->
+            {{-- <img src="../../../dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> --}}
+            <span class="brand-text fw-light">ZKT</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div>
     <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
     <div class="sidebar-wrapper">
         <nav class="mt-2"> <!--begin::Sidebar Menu-->
@@ -48,46 +48,42 @@
                     </ul>
                 </li> --}}
 
-                <li class="nav-header">SETTINGS</li>
+
+                <li class="nav-header">USER</li>
+                {{-- <li class="nav-item">
+                    <a href="{{ route('admin.syncuser') }}" class="nav-link {{ request()->is('admin/employee/sync/*') ? 'active' : '' }}">
+                         <i class="mdi mdi-account-group"></i>
+                         <p>User</p>
+                    </a>
+                </li> --}}
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.indexEmployee') }}" class="nav-link {{ request()->is('dmin/employee/list/*') ? 'active' : '' }}">
+                         <i class="mdi mdi-account-group"></i>
+                         <p>Employee List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.indexAttendence') }}" class="nav-link {{ request()->is('admin/list/attendence/*') ? 'active' : '' }}">
+                         <i class="mdi mdi-fingerprint"></i>
+                         <p>Attendence</p>
+                    </a>
+                </li>
+
+
+               <li class="nav-header">SETTINGS</li>
                 <li class="nav-item"> <a href="{{ route('admin.settingCreate') }}" class="nav-link {{ request()->is('admin/setting/*') ? 'active' : '' }}"> <i
                             class="mdi mdi-cogs"></i>
                         <p>Settings</p>
                     </a> </li>
 
 
-                <li class="nav-item"> 
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.connection') }}" class="nav-link {{ request()->is('aadmin/connection/*') ? 'active' : '' }}">
                          <i class="mdi mdi-connection"></i>
                          <p>Connection</p>
-                    </a> 
-                </li>
-                <li class="nav-header">USER</li>
-                {{-- <li class="nav-item"> 
-                    <a href="{{ route('admin.syncuser') }}" class="nav-link {{ request()->is('admin/employee/sync/*') ? 'active' : '' }}">
-                         <i class="mdi mdi-account-group"></i>
-                         <p>User</p>
-                    </a> 
+                    </a>
                 </li> --}}
-
-                <li class="nav-item"> 
-                    <a href="{{ route('admin.indexEmployee') }}" class="nav-link {{ request()->is('dmin/employee/list/*') ? 'active' : '' }}">
-                         <i class="mdi mdi-account-group"></i>
-                         <p>Employee List</p>
-                    </a> 
-                </li>
-                <li class="nav-item"> 
-                    <a href="{{ route('admin.indexAttendence') }}" class="nav-link {{ request()->is('admin/list/attendence/*') ? 'active' : '' }}">
-                         <i class="mdi mdi-connection"></i>
-                         <p>Attendence</p>
-                    </a> 
-                </li>
-
-
-                <li class="nav-header">DOCUMENTATIONS</li>
-                <li class="nav-item"> <a href="../docs/introduction.html" class="nav-link"> <i
-                            class="nav-icon bi bi-download"></i>
-                        <p>Installation</p>
-                    </a> </li>
 
             </ul> <!--end::Sidebar Menu-->
         </nav>

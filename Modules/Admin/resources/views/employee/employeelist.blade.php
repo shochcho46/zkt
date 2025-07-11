@@ -16,7 +16,7 @@
                 <ol class="breadcrumb float-sm-end">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <a href="{{ route('admin.roleIndex') }}">Role</a>
+                        <a href="{{ route('admin.indexEmployee') }}">Employee</a>
                     </li>
                 </ol>
             </div>
@@ -26,20 +26,28 @@
 
     <div class="app-content">
         <div class="container">
+            <div id="loading" style="display: none;
+                                            position: fixed; top: 0; left: 0;
+                                            width: 100vw; height: 100vh;
+                                            z-index: 9999; background-color: rgba(255, 255, 255, 0.8);
+                                            text-align: center; padding-top: 20vh;">
+                                            <img src="{{ asset('assets/zkt/loading.gif') }}" alt="Loading..." class="img-fluid">
+                                            <p class="mt-2">Connecting...</p>
+                                        </div>
             <div class="row">
                 <h1 class="mt-3">Employee List</h1>
                 <div class="d-flex justify-content-between align-items-end mt-3 mb-3">
 
 
-                    <form action="{{ url()->current() }}" method="GET" class="d-flex align-items-end gap-1">
+                    <form action="{{ url()->current() }}" method="GET" id="searchForm" class="d-flex align-items-end gap-1">
                         {{-- @include('components.daterange') --}}
                         @include('components.search')
                     </form>
 
 
                     <div class="d-flex gap-1">
-                        <a href="{{ route('admin.syncuser') }}" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Sync all users">
-                             user sync <i class="mdi mdi-sync-circle "></i>
+                        <a href="{{ route('admin.syncuser') }}" id="syncBtn" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Sync all users">
+                             employee sync <i class="mdi mdi-sync-circle "></i>
                         </a>
 
                     </div>
@@ -88,5 +96,30 @@
 
 
 @push('custome-js')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle sync button loading
+    const syncBtn = document.getElementById('syncBtn');
+    if (syncBtn) {
+        syncBtn.addEventListener('click', function(e) {
+             $('#loading').show();
+        });
+    }
 
+    // Handle search form loading
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            // Find the search button and add loading state
+            const searchBtn = this.querySelector('button[type="submit"]');
+            if (searchBtn) {
+                $('#loading').show();
+            }
+        });
+    }
+
+
+
+});
+</script>
 @endpush
