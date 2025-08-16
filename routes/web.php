@@ -64,48 +64,6 @@ Route::prefix('user')->group(function () {
     //     });
     // });
 
-    // Route::prefix('option')->group(function () {
-    //     Route::controller(QuestionOptionController::class)->group(function () {
-    //         Route::get('list/', 'index');
-    //         Route::post('store', 'store');
-    //         Route::post('update/{questionOption}', 'update');
-    //         Route::get('show/{questionOption}', 'show');
-    //         Route::post('delete/{questionOption}', 'destroy');
 
-    //     });
-    // });
-
-
-    // Route::prefix('participant')->group(function () {
-    //     Route::controller(SurveyParticipantController::class)->group(function () {
-    //         Route::post('store', 'store');
-    //         Route::get('list/', 'index');
-    //         Route::post('update/{questionOption}', 'update');
-    //         Route::get('show/{questionOption}', 'show');
-    //         Route::post('delete/{questionOption}', 'destroy');
-
-    //     });
-    // });
-
-    // Route::prefix('participant/answer')->group(function () {
-    //     Route::controller(ParticipantAnswerController::class)->group(function () {
-    //         Route::post('store', 'store');
-    //         Route::get('list/', 'index');
-    //         Route::post('update/{questionOption}', 'update');
-    //         Route::get('show/{questionOption}', 'show');
-    //         Route::post('delete/{questionOption}', 'destroy');
-
-    //     });
-    // });
-
-    // Route::prefix('graph')->group(function () {
-    //     Route::controller(SurveyGraph::class)->group(function () {
-
-    //         Route::get('participant/{survey:uuid}', 'participantGraph');
-    //         Route::get('question/{survey:uuid}', 'questionGraph');
-
-
-    //     });
-    // });
 
 });

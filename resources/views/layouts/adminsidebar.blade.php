@@ -70,12 +70,29 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.leaveType.index') }}" class="nav-link {{ request()->is('admin/leave-type/*') ? 'active' : '' }}">
+                         <i class="mdi mdi-beach"></i>
+                         <p>Leave Types</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.leaveApply.index') }}" class="nav-link {{ request()->is('admin/leave-apply/*') ? 'active' : '' }}">
+                         <i class="mdi mdi-beach"></i>
+                         <p>Leave Apply</p>
+                    </a>
+                </li>
+
 
                <li class="nav-header">SETTINGS</li>
-                <li class="nav-item"> <a href="{{ route('admin.settingCreate') }}" class="nav-link {{ request()->is('admin/setting/*') ? 'active' : '' }}"> <i
+
+                <li class="nav-item">
+                     <a href="{{ route('admin.settingCreate') }}" class="nav-link {{ request()->is('admin/setting/*') ? 'active' : '' }}"> <i
                             class="mdi mdi-cogs"></i>
                         <p>Settings</p>
-                    </a> </li>
+                    </a>
+                </li>
 
 
                 {{-- <li class="nav-item">
