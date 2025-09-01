@@ -18,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\ZktecoService;
+use Illuminate\Support\Facades\Log;
 use Rats\Zkteco\Lib\ZKTeco;
 class HomeController extends Controller
 {
@@ -31,21 +32,21 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
-        
-      
+
+
         // $zk = new ZKTeco("103.234.118.196", "4370");
 
         // // Attempt to connect to the device
         // if ($zk->connect()) {
-        //    $name =  $zk->getUser(); 
-            
-            
+        //    $name =  $zk->getUser();
+
+
         //     return response()->json(['status' => $name]);
         // } else {
         //     return response()->json(['status' => 'failed to connect'], 500);
         // }
 
-            
+
         // if ($connected) {
         //     $this->zkService->disconnect();
         //     return response()->json([

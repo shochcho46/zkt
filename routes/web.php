@@ -25,7 +25,6 @@ Route::get('google/auth/callback', [App\Http\Controllers\HomeController::class, 
 
 
 
-
 Route::prefix('user')->group(function () {
 
     Route::middleware(['auth'])->group(function () {
@@ -53,16 +52,8 @@ Route::prefix('user')->group(function () {
         // });
     });
 
-    // Route::prefix('question')->group(function () {
-    //     Route::controller(QuestionController::class)->group(function () {
-    //         Route::get('list/', 'index');
-    //         Route::post('store', 'store');
-    //         Route::post('update/{question}', 'update');
-    //         Route::get('show/{question}', 'show');
-    //         Route::post('delete/{question}', 'destroy');
 
-    //     });
-    // });
+
 
 
 
