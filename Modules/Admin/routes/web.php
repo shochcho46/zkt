@@ -48,7 +48,11 @@ use Modules\Admin\Http\Controllers\LeaveTypeController;
             Route::get('list/attendence', 'indexAttendence')->name('admin.indexAttendence');
             Route::get('{employee}/attendence/list', 'singelEmployeeAttendence')->name('admin.singelEmployeeAttendence');
             Route::get('export/attendence', 'exportAttendence')->name('admin.exportAttendence');
-
+            Route::get('create', 'create')->name('admin.employee.create');
+            Route::post('store', 'store')->name('admin.employee.store');
+            Route::get('{employee}/edit', 'edit')->name('admin.employee.edit');
+            Route::put('{employee}/update', 'updateEmployee')->name('admin.employee.update');
+            Route::delete('{employee}/destroy', 'destroy')->name('admin.employee.destroy');
         });
 
     });

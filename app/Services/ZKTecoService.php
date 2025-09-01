@@ -88,4 +88,30 @@ class ZKTecoService
 
         return ['status' => true, 'data' => $userList];
     }
+
+
+    public function createUser($createUser)
+    {
+        if (!$this->connect()) {
+            return ['status' => false, 'message' => 'Connection failed'];
+        }
+
+        $userCreate = $this->zk->setUser($createUser->uid, $createUser->userid, $createUser->name, 12345678, 0, $createUser->cardno);
+        $this->disconnect();
+
+        return ['status' => true, 'data' => $userCreate];
+    }
+
+
+    public function removeUser($createUser)
+    {
+        if (!$this->connect()) {
+            return ['status' => false, 'message' => 'Connection failed'];
+        }
+
+        $userRemove = $this->zk->removeUser($createUser->uid);
+        $this->disconnect();
+
+        return ['status' => true, 'data' => $userRemove];
+    }
 }

@@ -103,15 +103,81 @@ class EmployeeController extends Controller
 
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        // Get the next userid by finding the last employee's userid and incrementing
+        $lastEmployee = Employee::orderBy('userid', 'desc')->first();
+        $nextUserId = $lastEmployee ? $lastEmployee->userid + 1 : 1;
+        $nextUid = Employee::orderBy('uid', 'desc')->first();
+        $nextUid = $nextUid ? $nextUid->uid + 1 : 1;
+
+        return view('admin::employee.create', compact('nextUserId','nextUid'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'userid' => 'required|unique:employees,userid',
+            'uid' => 'required|unique:employees,uid',
+            'role' => 'required|integer',
+            'cardno' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string',
+            'status' => 'required|boolean',
+        ]);
+
+        // Get current admin id
+        $validated['admin_id'] = Auth::guard('admin')->user()->id;
+
+        $employeeDetail = Employee::create($validated);
+
+        $zkService = $this->getZKServiceFromUser();
+        $attendenceData = $zkService->createUser($employeeDetail);
+
+        return redirect()->route('admin.indexEmployee')->with('success', 'Employee created successfully.');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        $employee = Employee::findOrFail($id);
+        return view('admin::employee.edit', compact('employee'));
     }
 
     /**
      * Update the specified resource in storage.
+     */
+    public function updateEmployee(Request $request, $id)
+    {
+        $employee = Employee::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'cardno' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string',
+            'status' => 'required|boolean',
+        ]);
+
+        $employee->update($validated);
+
+
+        $zkService = $this->getZKServiceFromUser();
+        $attendenceData = $zkService->createUser($employee->fresh());
+
+        return redirect()->route('admin.indexEmployee')->with('success', 'Employee updated successfully.');
+    }
+
+    /**
+     * Sync attendance data from ZK device.
      */
     public function update(Request $request, $id)
     {
@@ -220,5 +286,14 @@ class EmployeeController extends Controller
         return view('admin::employee.sync', compact('data'));
 
 
+    }
+
+    public function destroy(Employee $employee)
+    {
+        $zkService = $this->getZKServiceFromUser();
+        $attendenceData = $zkService->removeUser($employee);
+        $employee->delete();
+
+        return redirect()->route('admin.indexEmployee')->with('success', 'Employee deleted successfully.');
     }
 }

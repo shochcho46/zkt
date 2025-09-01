@@ -22,7 +22,16 @@ class Employee extends Model
         'cardno',
         'phone',
         'address',
+        'status',
     ];
 
-    
+    /**
+     * Get the admin that owns the employee.
+     */
+    public function admin()
+    {
+        return $this->belongsTo(\App\Models\Admin::class);
+    }
+
+
 }

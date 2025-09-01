@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\ZktecoService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Rats\Zkteco\Lib\ZKTeco;
 class HomeController extends Controller
 {

@@ -79,7 +79,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('admin.leaveApply.index') }}" class="nav-link {{ request()->is('admin/leave-apply/*') ? 'active' : '' }}">
-                         <i class="mdi mdi-beach"></i>
+                         <i class="mdi mdi-umbrella-beach-outline"></i>
                          <p>Leave Apply</p>
                     </a>
                 </li>

@@ -23,7 +23,7 @@ class LeaveApplyController extends Controller
     public function create()
     {
         $employees = Employee::where('status', 1)->get();
-        $leaveTypes = LeaveType::all();
+        $leaveTypes = LeaveType::where('status',1)->get();
         return view('admin::leaveapply.create', compact('employees', 'leaveTypes'));
     }
 
@@ -50,7 +50,7 @@ class LeaveApplyController extends Controller
     {
         $leaveApply = LeaveApply::findOrFail($id);
         $employees = Employee::where('status', 1)->get();
-        $leaveTypes = LeaveType::all();
+        $leaveTypes = LeaveType::where('status', 1)->get();
         return view('admin::leaveapply.edit', compact('leaveApply', 'employees', 'leaveTypes'));
     }
 

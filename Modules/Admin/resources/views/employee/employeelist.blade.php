@@ -50,6 +50,10 @@
                              employee sync <i class="mdi mdi-sync-circle "></i>
                         </a>
 
+                        <a href="{{ route('admin.employee.create') }}" id="syncBtn" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add new users">
+                             employee add <i class="mdi mdi-plus-circle "></i>
+                        </a>
+
                     </div>
                 </div>
 
@@ -60,6 +64,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Phone</th>
                             <th scope="col" class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -68,10 +74,22 @@
                             <tr>
                                 <th scope="row">{{ $datas->firstItem() + $index }}</th>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->userid }}</td>
+                                <td>{{ $item->phone }}</td>
 
                                 <td class="text-center">
 
-                                    <a href="{{ route('admin.singelEmployeeAttendence', $item->id) }}" class="btn btn-sm btn-outline-success"> <i class="mdi mdi-vector-square-plus"></i></a>
+                                    <a href="{{ route('admin.singelEmployeeAttendence', $item->id) }}" class="btn btn-sm btn-outline-success" title="View Attendance">
+                                        <i class="mdi mdi-vector-square-plus"></i>
+                                    </a>
+
+                                    <a href="{{ route('admin.employee.edit', $item->id) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </a>
+
+                                    <button type="button" class="btn btn-sm btn-outline-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" data-url="{{ route('admin.employee.destroy', $item->id) }}">
+                                        <i class="mdi mdi-delete"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @empty
